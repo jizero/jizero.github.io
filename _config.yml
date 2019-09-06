@@ -1,6 +1,6 @@
-title: Hello, world! I'm jizero
+title: Hello, world! I'm  jizero
 description: > # this means to ignore newlines until "baseurl:"
- 정보 기술 블로그입니다.
+  jizero blog
 permalink: ':title/'
 
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
@@ -17,7 +17,7 @@ social-linkedin: # add your Linkedin handle
 social-email: jizero.hwang@gmail.com # add your Email address
 
 # Disqus
-discus-identifier: mr-brown # add your discus identifier
+discus-identifier: ms-jizero # add your discus identifier
 
 # Tracker
 analytics: # Google Analytics
@@ -33,5 +33,3 @@ paginate: 8
 paginate_path: "/page/:num"
 
 exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
-
-theme: jekyll-theme-cayman
