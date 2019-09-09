@@ -17,10 +17,10 @@ social-linkedin: # add your Linkedin handle
 social-email: jizero.hwang@gmail.com # add your Email address
 
 # Disqus
-discus-identifier: ms-jizero # add your discus identifier
+discus-identifier: ji_young_hwang # add your discus identifier
 
 # Tracker
-analytics: # Google Analytics
+analytics: UA-147256279-1 # Google Analytics
 
 # Build Settings
 markdown: kramdown

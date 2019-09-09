@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "[계획]"
+date:   0000-00-00 00:00
+author: jizero
+tags:	['잡담','jenkins','spring']
+img:  # Add image post (optional)
+---
+
+
+## 1일 1커밋 (깃블로그 포함)
+
+## 1일 1알고리즘
+
