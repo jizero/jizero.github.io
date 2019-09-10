@@ -1,0 +1,83 @@
+---
+layout: post
+title:  "docker  Window 7 nodejs 서버구동 - 1"
+date:   2019-09-10 10:00
+author: jizero
+tags:	['docker']
+img:  201909/docker1.png # Add image post (optional)
+---
+
+
+## 시작하며
+Docker를 통해 nodejs 서버를 배포하는 것에 대해 포스팅한다.
+
+
+### 도커란
+
+## 도커설치하기
+[https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+
+도커허브 가입 후 상세한 안내로 챡챡 진행해 준다.
+
+<img src="/assets/img/201909/docker2.png" style="max-width:600px;" />
+1단계~5단계까지
+
+#### 도커허브란?
+도커 허브는 도커에서 제공하는 기본 이미지 저장소로 ubuntu, centos, debian등의 베이스 이미지와 ruby, golang, java, python 등의 공식 이미지가 저장되어 있다.
+도커 이미지의 용량은 보통 수백메가로 수기가가 넘는 경우도 흔하다.  Docker hub를 통해 공개 이미지를 무료로 관리해준다.
+
+#### exe가 실행이안되는 경우가있다.. 그럴땐 툴박스를 통해 설치!
+https://docs.docker.com/toolbox/toolbox_install_windows/
+
+<img src="/assets/img/201909/docker3.png" style="max-width:600px;" />
+
+### 도커로 서버 구동해보기
+
+
+#### Dockerfile 작성하기
+```shell
+
+FROM node:latest
+
+#관리자
+MAINTAINER jizero
+ 
+#app 폴더 만들기 - NodeJS 어플리케이션 폴더
+RUN mkdir -p /app
+#winston 등을 사용할떄엔 log 폴더도 생성
+ 
+#어플리케이션 폴더를 Workdir로 지정 - 서버가동용
+WORKDIR /app
+ 
+#서버 파일 복사 ADD [어플리케이션파일 위치] [컨테이너내부의 어플리케이션 파일위치]
+#저는 Dockerfile과 서버파일이 같은위치에 있어서 ./입니다
+ADD ./ /app
+ 
+#패키지파일들 받기
+RUN npm install
+ 
+#배포버젼으로 설정 - 이 설정으로 환경을 나눌 수 있습니다.
+ENV NODE_ENV=production
+ 
+#서버실행
+CMD node nodejs_tutorial_server.js
+```
+
+#### Dockerfile 빌드하기
+#### Dockerfile 실행하기
+
+## 이번포스팅으로 배운것
+- 도커란
+- Docker로 NodeJS Express 서버 구동해보기
+  - Dockerfile 작성
+  - 이미지 빌드
+  - 이미지 실행하기
+
+
+
+## NEXT step
+[2편에서는 멀티코어대응 NodeJS Cluster!](/docker2/)
+
+## 참고
+[도커허브 노드 이미지](https://hub.docker.com/_/node/)
+
