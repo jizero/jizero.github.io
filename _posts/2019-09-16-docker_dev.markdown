@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "docker + CI + MYSQL (for windows7)"
-date:   2019-09-17 10:00
+title:  "docker을 이용한 개발환경 셋팅 CI + MYSQL (for windows7)"
+date:   2019-09-16 10:00
 author: jizero
 tags:	['docker','codeigniter']
 img:  201909/php1.png # Add image post (optional)
@@ -10,10 +10,11 @@ img:  201909/php1.png # Add image post (optional)
 ## 목표
 로컬환경에 개발환경을 설치하지 않고 docker를 이용해 개발환경을 구성해보자!
 
-unbuntu 16<br />
+ubuntu 16<br /> 
 php 7.3<br />
-mysql 5.7<br />
 codeigniter 3.10.<br />
+mysql 5.7<br />
+
 
 ## 준비
 docker, docker-compose 설치 [1편참고](/docker/) <br />
@@ -94,13 +95,16 @@ CMD ["/usr/local/bin/run" ]
 
 ## docker-compose.yml 작성
 \docker\jizero_member\docker-compose.yml
+
+#### 컨테이너 두개를 만들것이다.  서비스명은 webservice /  mysqldb 임의로 정한다.
+
 #### volumes에  www는 CI파일이 들어있는 루트 폴더이다.
 
 ```bash
 
 version: '3'
 services:
-  {수정할곳}: ##{수정할곳} 서비스명
+  webservice: ## 서비스명
     build: ./
     ports:
       - "8082:80"
@@ -108,7 +112,7 @@ services:
       - ./www:/var/www/html ##{wwww} 연결시킬곳
     links:
       - mysqldb
-  mysqldb:
+  mysqldb: ## 서비스명
     image: mysql:5.7
     environment:
       - MYSQL_DATABASE=mysql ## 테이터베이스
@@ -129,17 +133,24 @@ services:
 docker-compose up
 
 ```
-<img src="/assets/img/201909/php0.png" style="max-width:100%;">
 
-## mysql container 확인
+
+### container 구동 확인
 ```bash
 
 docker ps
 
 ```
+<img src="/assets/img/201909/php0.png" style="max-width:100%;">
 
+툴박스를 깐 경우  Kitematic 으로 확인할수있다.
+(초록불 확인!)
+<img src="/assets/img/201909/php1.png" style="max-width:100%;">
 
 <img src="/assets/img/201909/php2.png" style="max-width:100%;">
+
+
+구동이되지않았을경우 에러로그를 잘살펴보자!
 
 ## 외부툴에서 실행시키기 (mysql workbench)
 
