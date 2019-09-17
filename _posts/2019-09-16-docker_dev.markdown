@@ -130,6 +130,7 @@ services:
 ### docker 실행 
 
 <img src="/assets/img/201909/php4.png" style="max-width:100%;">
+
 해당 프로젝트로 경로로 이동
 <img src="/assets/img/201909/php5.png" style="max-width:100%;">
 

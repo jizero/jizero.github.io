@@ -86,7 +86,7 @@ hr {
 pre {
   font-family: monospace, monospace;
   /* 1 */
-  font-size: 1em;
+  font-size: 0.8em;
   /* 2 */
 }
 
@@ -1165,7 +1165,7 @@ footer .copyright {
 
 .post .post-content .post-title {
   margin: 0 0 10px;
-  font-size: 30px;
+  font-size: 23px;
   font-weight: 400;
 }
 
