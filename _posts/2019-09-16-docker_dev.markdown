@@ -8,22 +8,22 @@ img:  201909/php1.png # Add image post (optional)
 ---
 
 ## 목표
-로컬환경에 개발환경을 설치하지 않고 docker를 이용해 개발환경을 구성해보자!
+로컬환경에 개발환경을 설치하지 않고 docker를 이용해 apm 개발환경을 구성해보자!
 
-ubuntu 16<br /> 
+ubuntu 16.04<br /> 
 php 7.3<br />
 codeigniter 3.10.<br />
 mysql 5.7<br />
 
 
 ## 준비
-docker, docker-compose 설치 [1편참고](/docker/) <br />
-toolbox를 이용해 설치한 사람은  docker-compose를 따로 설치할 필요없다. <br />
-codeigniter 3 보일러 플레이트 준비 [다운로드](https://codeigniter.com/download)
+1.docker, docker-compose 설치 [1편참고](/docker/) <br />
+  (toolbox를 이용해 설치한 사람은  docker-compose를 따로 설치할 필요없다.) <br />
+2.codeigniter 3 보일러 플레이트 준비 [다운로드](https://codeigniter.com/download)
+
 
 ## 프로젝트 폴더 생성
 \docker\jizero_member
-
 
 ## dockfile 작성
 \docker\jizero_member\dockfile
@@ -118,7 +118,7 @@ services:
       - MYSQL_DATABASE=mysql ## 테이터베이스
       - MYSQL_ROOT_PASSWORD=jizero12 ##루트비번
       - MYSQL_USER=jizero ##사용자명
-      - MYSQL_PASSWORD=jizero12 ## 연결시킬곳
+      - MYSQL_PASSWORD=jizero12 ## 비번
     command: "--innodb_use_native_aio=0"
     volumes:
       - ./mysql_data:/var/lib/mysql
@@ -127,7 +127,12 @@ services:
 
 ```
 
-## docker 실행 
+### docker 실행 
+
+<img src="/assets/img/201909/php4.png" style="max-width:100%;">
+해당 프로젝트로 경로로 이동
+<img src="/assets/img/201909/php5.png" style="max-width:100%;">
+
 ```bash
 
 docker-compose up
@@ -143,11 +148,9 @@ docker ps
 ```
 <img src="/assets/img/201909/php0.png" style="max-width:100%;">
 
-툴박스를 깐 경우  Kitematic 으로 확인할수있다.
+Kitematic 으로도 확인할 수 있다.
 (초록불 확인!)
 <img src="/assets/img/201909/php1.png" style="max-width:100%;">
-
-<img src="/assets/img/201909/php2.png" style="max-width:100%;">
 
 
 구동이되지않았을경우 에러로그를 잘살펴보자!
@@ -157,7 +160,17 @@ docker ps
 <img src="/assets/img/201909/php3.png" style="max-width:100%;">
 
 
+### 실행이 되지 않을경우?
+파워셀에서 mysql을 확인해보자 
 
+
+```bash
+
+docker exec -it {서비스명} /bin/bash
+mysql -u root -p password
+
+```
+<img src="/assets/img/201909/php2.png" style="max-width:100%;">
 
 
 ## 프로젝트 종료
