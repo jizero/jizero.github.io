@@ -771,8 +771,18 @@ html {
   line-height: 1.5;
 }
 
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-weight: 400;
+  src: local('Noto Serif CJK KR'),
+  url('https://static.hubtee.com/assets/hubtee-font/latest/NotoSerifKR-Regular.hubtee.woff2') format('woff2'),
+  url('https://static.hubtee.com/assets/hubtee-font/latest/NotoSerifKR-Regular.hubtee.woff') format('woff'),
+  url('https://static.hubtee.com/assets/hubtee-font/latest/NotoSerifKR-Regular.hubtee.otf') format('opentype');
+}
+
+
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato',"Noto Serif KR", "AppleGothic", "나눔고딕", sans-serif;
   color: #515151;
   background-color: #fbfbfb;
   margin: 0;
@@ -1160,7 +1170,7 @@ footer .copyright {
 }
 
 .post .post-content .post-title a {
-  font-family: 'PT Serif',  'malgun gothic', serif;
+  font-family:"Noto Serif KR", "AppleGothic", "나눔고딕", sans-serif;
   text-decoration: none;
   color: #263959;
 }
