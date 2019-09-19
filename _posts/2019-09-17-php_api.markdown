@@ -1,0 +1,104 @@
+---
+layout: post
+title:  "codeigniter에서 rest~~ful 한 api 만들기"
+date:   2019-09-17 10:00
+author: jizero
+tags:	['docker','codeigniter']
+
+---
+
+## 목표
+codeigniter에 rest api 만들기
+(codeigniter에대해  알고있는 사람을 대상으로 간단하게 적어봅니다.)
+
+## 준비
+0. restApi 디자인 가이드 습득하기 [https://bcho.tistory.com/914]
+1. APi만들수있는 개발환경 [docker - CI - Mysql](/docker_dev/) <br />
+2. Rest Server  라이브러리 다운 [CodeIgniter Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) <br />
+
+application\config\rest.php <br />
+libraries\Format.php <br />
+libraries\REST_Controller.php <br />
+libraries\REST_Controller_Definitions.php <br />
+
+<img src="/assets/img/201909/rest1.png" style="max-width:100%;">
+
+
+## DB 테이블생성
+조회할수있는 테이블 설계
+
+## CodeIgniter에 적용하기
+### URL 설정하기
+### controller
+자세한 소스는   [CodeIgniter Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) example을 확인해보자
+
+``` php
+<?php
+use Restserver\Libraries\REST_Controller;
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+// This can be removed if you use __autoload() in config.php OR use Modular Extensions
+/** @noinspection PhpIncludeInspection */
+
+//To Solve File REST_Controller not found
+require APPPATH . 'libraries/REST_Controller.php';
+require APPPATH . 'libraries/REST_Controller_Definitions.php';
+require APPPATH . 'libraries/Format.php';
+
+class Member extends CI_Controller {
+
+  function __construct()
+	{
+		// Construct the parent class
+		parent::__construct();
+		$this->__resTraitConstruct();
+		$this->load->model('member_m');
+
+		$this->methods['index_get']['limit'] = 500; // 500 requests per hour per user/key
+		$this->methods['index_post']['limit'] = 100; // 100 requests per hour per user/key
+		$this->methods['index_delete']['limit'] = 50; // 50 requests per hour per user/key
+	}
+
+  //get  member/1
+	public function index_get() 
+	{
+		if ($id === null) {
+			if ($users) {
+				$this->response($users, 200); // OK (200) being the HTTP response code
+			} else {
+				$this->response(array(
+					'status' => false,
+					'message' => 'No users were found'
+				), 404);
+			}
+		}
+  }
+
+  public function user_put() //put  member/user
+	{
+      $userData = array();
+        $id = $this->put('id');
+  }
+
+   ...
+
+}
+```
+
+### model 생성
+``` php
+public function read($data, $id = null){
+
+		$select = $this->db->select('*')
+    ....
+	}
+
+```
+
+## 테스트
+url과 postman을 통해 확인 한다
+<img src="/assets/img/201909/rest3.png" style="max-width:100%;">
+<img src="/assets/img/201909/rest4.png" style="max-width:100%;">
+
+
+## 끝!
