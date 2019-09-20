@@ -9,10 +9,12 @@ img:  201909/docker1.png # Add image post (optional)
 
 
 ## 시작하며
+[https://holywater-jeong.github.io/blog/docker/](https://holywater-jeong.github.io/blog/docker/)
+이글을 읽고 포스팅을 시작하게 되었으며,
 Docker를 통해 nodejs 서버를 배포하는 것에 대해 포스팅한다.
 
-
 ### 도커란
+
 
 ## 도커설치하기
 [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
