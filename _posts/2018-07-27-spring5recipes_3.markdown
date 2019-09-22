@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[스터디 기록][3장] spring 5 recipes 3-1~3-5"
-date:   2019-07-27 10:00
+date:   2018-07-27 10:00
 tags:	['springFramework',' spring recipes 5']
 img:  201909/spring3_2.png # Add image post (optional)
 ---

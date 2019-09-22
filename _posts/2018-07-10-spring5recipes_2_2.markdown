@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[스터디 기록][2장] spring 5 recipes 2-6~2-10"
-date:   2019-07-10 10:00
+date:   2018-07-10 10:00
 author: jizero
 tags:	['springFramework',' spring recipes 5']
 ---
