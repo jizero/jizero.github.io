@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DevOps LoadMap"
+title: "[DevOps] LoadMap"
 date: 2019-04-06 13:32:20 +0300
 description: DevOps란 무엇인가. # Add post description (optional)
 img:  201909/devops1.png # Add image post (optional)

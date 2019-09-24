@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "react 틱택토 게임 만들기"
+title:  "[react] 틱택토 게임 만들기"
 date:   2019-04-30 10:00
 author: jizero
 tags:	[javascript,'react','esnext']

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "docker을 이용한 개발환경 셋팅 CI + MYSQL (for windows7)"
+title:  "[docker] docker을 이용한 개발환경 셋팅 CI + MYSQL"
 date:   2019-09-16 10:00
 author: jizero
 tags:	['docker','codeigniter']
@@ -8,7 +8,7 @@ img:  201909/php1.png # Add image post (optional)
 ---
 
 ## 목표
-로컬환경에 개발환경을 설치하지 않고 docker를 이용해 apm 개발환경을 구성해보자!
+로컬환경에 개발환경을 설치하지 않고 docker를 이용해 apm 개발환경을 구성해보자!  (for windows7)
 
 ubuntu 16.04<br /> 
 php 7.3<br />

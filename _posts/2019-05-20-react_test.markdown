@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "react Enzyme 테스트"
+title:  "[react] Enzyme 테스트"
 date:   2019-05-20 10:00
 author: jizero
 tags:	['react','codeigniter']
