@@ -8,15 +8,15 @@ tags:	[javascript,codility,algorithm]
 ---
 
 ## 문제 요약
-배열 A B 와 선분을 만들어 겹치지 않는 선을 찾는 문제
-문제 이해만 30분 소요 ㅜㅜ
-
-input : 
- A = {1,3,7,9,9}
- B = {5,6,8,9,10}
+배열 A B 와 선분을 만들어 겹치지 않는 선을 찾는 문제<br />
+문제 이해만 30분 소요 ㅜㅜ<br />
+<br />
+input : <br />
+ A = {1,3,7,9,9}<br />
+ B = {5,6,8,9,10}<br />
 
 <img src="/assets/img/201910/code1.PNG" />
-
+<br />
 output : 3
 
 
