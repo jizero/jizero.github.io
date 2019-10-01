@@ -976,6 +976,16 @@ table tfoot td {
           transform: scale3d(0.9, 0.9, 1);
 }
 
+.about .tag{
+  font-weight: bold;
+  background: #eee;
+  border-radius: 3px;
+  vertical-align: middle;
+  width: 91px;
+  margin: 0 auto;
+  padding-bottom: 3px;
+}
+
 .about .author-name {
   font-family: 'PT Serif', serif;
   margin: 0 0 10px;
