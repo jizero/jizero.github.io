@@ -985,6 +985,7 @@ table tfoot td {
   margin: 0 auto;
   padding-bottom: 3px;
 }
+.about .tag a{   color: #333030; }
 
 .about .author-name {
   font-family: 'PT Serif', serif;
