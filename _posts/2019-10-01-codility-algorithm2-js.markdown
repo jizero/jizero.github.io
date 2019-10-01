@@ -1,0 +1,70 @@
+---
+layout: post
+title:  "[codility] MaxNonoverlappingSegments"
+date:   2019-10-01 10:00
+author: jizero
+tags:	[javascript,codility,algorithm]
+
+---
+
+## 문제 요약
+배열 A B 와 선분을 만들어 겹치지 않는 선을 찾는 문제
+문제 이해만 30분 소요 ㅜㅜ
+
+input : 
+ A = {1,3,7,9,9}
+ B = {5,6,8,9,10}
+
+<img src="/assets/img/201910/code1.PNG" />
+
+output : 3
+
+
+### 나의코드 50% 
+
+```javascript
+
+function solution(A, B) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    let resultCount = 0;
+    let segLen =  A.length;
+    for(let i=0; i < A.length ;i++){
+
+        if(B[i] >= A[i+1] &&  B[i] <= B[i+1]){
+            resultCount++;
+        }
+    }
+    
+
+    return (segLen -resultCount);
+}
+
+```
+* 예외처리의 누락
+* 총 선분(배열길이) 을 구한후 중복되지 않는 부분을 제거하였으나 에러검출 4개..
+
+
+
+
+### 100% code 
+```javascript
+function solution(A, B) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    if (A.length <= 1) {
+        return A.length;
+    }
+    //배열 길이체크가 10%
+
+    let resultCount = 1;
+    let prevEnd = B[0];
+    for(let i=1; i < A.length ;i++){
+        if(A[i] > B[i+1]  ||  A[i] > prevEnd){
+            resultCount++;
+             prevEnd = B[i];
+        }
+    }
+    
+
+    return resultCount;
+}
+```
