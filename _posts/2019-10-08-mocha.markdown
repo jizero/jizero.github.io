@@ -67,7 +67,7 @@ es6 사용코드들이 적용되지않는다..
     "presets": ["@babel/preset-env"]
 }
 ```
-바벨을통해 ES6 문법 코드를 사용할수 있게 되었다.
+이제 바벨을통해 ES6 문법 코드를 사용할수 있게 되었다.
 
 
 
@@ -78,7 +78,7 @@ aaa (b,a){
     return a+b;
 }
 ```
-/test/project.test.js  내실제 프젝트파일을 import 하고 함수를 돌려보려하였다.
+
 
 테스트코드파일
 
@@ -96,15 +96,22 @@ let chai = require('chai');  //차이사용
 
 ```
 
+다시 적용해보기
+
+```
+    npm test
+```
 <br /> 
+<img src="/assets/img/201910/m0.PNG" /><br />
+
 
 
 #### > jsdom 적용하기
-위와 같은 함수호출 테스트는 문제가 되지 않지만 문제가 되는곳은 <br />
- document.querySelector("") dom에서 셀렉트해오는 부분.. 가져올 돔이 없는것이다..
+함수호출 테스트는 문제가 되지 않지만 문제가 되는곳은 <br />
+document.querySelector("") dom에서 셀렉트해오는 부분.. 가져올 돔이 없는것이다..
 
-<img src="/assets/img/201910/m0.PNG" /><br />
-곰곰이 생각해보니 테스트코드에는 js파일만있을뿐, html이 없었던것이다.
+
+곰곰이 생각해보니 테스트코드에는 js파일만있을뿐, documnent를 가져올수있는 dom 이 없었던것이다.
 가짜돔을 만들자.
 
 ```
@@ -117,11 +124,11 @@ let chai = require('chai');  //차이사용
 
 ```
 const jsdom = require("jsdom"); // 추가
-const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
+global.document = (new jsdom('<!DOCTYPE html><html><head></head><body></body></html>')).window.document;
 
 ```
 
-실행후에도 문제가되는 부분은 페이크 돔을 추가로 만들어주면된다.
+실행 후에도 문제가되는 부분은 페이크 돔을 추가로 만들어주면된다.
 <img src="/assets/img/201910/m3.PNG" />
 
 나의프로젝트에서는 문제되는 localstorage를 만들어줌
