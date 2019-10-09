@@ -1,0 +1,196 @@
+---
+layout: post
+title:  "[mocha + chai] 프로젝트에 유닛 테스트 적용기"
+date:   2019-10-08 10:00
+author: jizero
+tags:	[javascript,test]
+img:  201910/m2.PNG # Add image post (optional)
+
+---
+<style>
+.page-cover-image { display:none; }
+</style>
+## 시작하며
+실제 내가 개발한 프로젝트에 삽질에 삽질에 삽질을 을 거친 그 적용 과정을 적어보려고 한다.<br/>
+이글을 읽는 모든분들은 적용 스펙과 환경 마다 모두모두 다르므로 꼬옥  프로젝트에 적용해 보길 바랍니다.!
+
+### 적용 프로젝트 스펙
+* VanilaJs (es 6 class) <br/>
+* Webpack (babel)
+
+* setInterval + localstroge를 이용한 noti 프로젝트
+
+### testFramework 선정하기
+테스트 프레임워크로는 mocha  Assertion 라이브러리 chai를 적용하였다.<br/>
+
+mocha에서는 어떤 Assertion 라이브러리라도 가져다가 사용할 수 있으며 자체 assertion은 지원하지 않는다. (노드 자체 지원  assert 사용가능)
+나는 expect(), assert(), should 스타일을 모두 지원하는 chai 사용하였다.
+
+[개념이해](https://ui.toast.com/fe-guide/ko_TEST/)
+
+
+### 프레임워크 + 라이브러리  설치하기 (현재 프로젝트에만)
+
+#### > 설치
+```
+    npm install --save-dev mocha
+    npm install --save-dev @babel/cli @babel/register   //각자 프로젝트에 따라 다름
+    npm install --save-dev chai
+```
+
+편하게 사용하기위해 pakage.json 에   test 스크립트 추가
+scripts" 부분에 추가해 주면 된다.
+
+```
+     "test": "./node_modules/.bin/mocha --require @babel/register"
+```
+
+#### > test 폴더 생성 /  테스트.js 생성
+```javascript
+import Testjs from 경로;
+let chai = require('chai');  //차이사용
+
+
+..테스트코드작성..
+
+```
+
+#### >  es6 모듈 에러 잡기
+/test/project.test.js  만들고  기존 사용하는 클래스들을 임포트하니
+es6 사용코드들이 적용되지않는다.. 
+--require @babel/register 요녀석이 제대로 동작되지 않은 모양이다.
+
+#### > .babelrc 생성후 추가 프리셋 추가!
+
+```
+{
+    "presets": ["@babel/preset-env"]
+}
+```
+바벨을통해 ES6 문법 코드를 사용할수 있게 되었다.
+
+
+
+testjs.js (프로젝트파일)
+```javascript
+ ..생략
+aaa (b,a){
+    return a+b;
+}
+```
+/test/project.test.js  내실제 프젝트파일을 import 하고 함수를 돌려보려하였다.
+
+테스트코드파일
+
+```javascript
+import Testjs from 경로;
+let chai = require('chai');  //차이사용
+
+
+ describe('aa함수호출', function(){
+     let test = new Testjs(); 
+        it('둘의 합이 잘나오는가', function(){
+            chai.expect(test.aaa('1','5')).to.equal('6'); 
+        });
+ });
+
+```
+
+<br /> 
+
+
+#### > jsdom 적용하기
+위와 같은 함수호출 테스트는 문제가 되지 않지만 문제가 되는곳은 <br />
+ document.querySelector("") dom에서 셀렉트해오는 부분.. 가져올 돔이 없는것이다..
+
+<img src="/assets/img/201910/m0.PNG" /><br />
+곰곰이 생각해보니 테스트코드에는 js파일만있을뿐, html이 없었던것이다.
+가짜돔을 만들자.
+
+```
+    npm install jsdom
+```
+[사용방법](https://www.npmjs.com/package/jsdom)
+
+
+
+
+```
+const jsdom = require("jsdom"); // 추가
+const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
+
+```
+
+실행후에도 문제가되는 부분은 페이크 돔을 추가로 만들어주면된다.
+<img src="/assets/img/201910/m3.PNG" />
+
+나의프로젝트에서는 문제되는 localstorage를 만들어줌
+```
+global.localStorage = {
+    data: {},
+    setItem(key, value) {
+        this.data[key] = value;
+    },
+    getItem(key) {
+        return this.data[key];
+    },
+    removeItem(key) {
+        return this.data[key];
+    }
+};
+
+```
+
+
+### 테스트코드 작성하기
+이제 에러가 없으니! 마음껏 작성해주면 된다. <br />
+chai cheat sheet 검색 및 깃 허브 예제 검색
+
+
+
+테스트트 코드작성시사용할 가짜 html도 추가해준다
+(task란 리스트에 엘레먼트가추가되는지 확인하는 테스트코드)
+ document.body.innerHTML = `<ol data-section="task"></ol>`;
+
+```
+--생략 --
+        it("settek", function() {
+            document.body.innerHTML = `<ol data-section="task"></ol>`;
+            test.taskContainer = document.querySelector("ol[data-section='task']");
+            test.setTask(task[0]);
+            chai.expect( document.getElementById("uniq_201910060904")).to.exist; 
+   
+        });
+       
+
+```
+
+예시 셀렉트박스별 조건 탐색
+```
+        // test.getMsgMode  조건을 가져오는 실제 사용함수
+        chai.expect(test.getMsgMode('urgent','night')).to.equal('소리');  
+
+        it('mode외 다른 값 집어넣기', function(){
+            chai.expect(test.getMsgMode('==','night')).to.be.false;
+            chai.expect(test.getMsgMode('==','==')).to.be.false;    
+            chai.expect(test.getMsgMode('normal','night2')).to.be.false;    
+        })
+```
+
+
+### 마치며
+```
+    npm test
+```
+<img src="/assets/img/201910/m2.PNG" />
+
+드디어 적용된 테스트 !<br/>
+등록셋팅민 조건을 따로 모듈화해서 관리한다면 후에 비슷한 프로젝트에도 재사용할수 있을것같다.<br/>
+조건식 (예)  사은품선택1 과 사은품2을 선택한경우 = 쿠폰할인 불가 ) 등 의 복잡한조건들을 테스트할때 정말정말 유용할것같다.<br/>
+셋타임아웃 프로젝트에 시간관련 테스트코드를 넣지 못해서 아쉬움이남는다.<br/>
+포스팅후 리팩토링을해서 꼭 재 포스팅을 해야겠다.<br/>
+
+
+### 작업시 참고했던 사이트들
+설치하는과정 = https://dev.to/bnorbertjs/my-nodejs-setup-mocha--chai-babel7-es6-43ei<br/>
+테스트 코드 작성 - https://programmingsummaries.tistory.com/383
