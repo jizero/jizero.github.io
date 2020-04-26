@@ -1,35 +1,35 @@
 ---
 layout: post
-title:  "aws 사용해보기"
-date:   2019-08-17 10:00
+title:  "개념이해를 위한 ecs 시작해보기 - step1"
+date:   2020-04-26 10:00
 author: jizero
-tags:	['docker','codeigniter']
+tags:	['docker','ecs','aws']
 ---
 
+## 선수지식
+aws cli <br/>
+aws-ecs-cil
+도커 / 도커 레지스트리 
+ec2 
 
-```bash
-
-```
-
-
-## docker-compose.yml 작성
-
-
-```bash
-
-docker-compose up
-
-```
+## 목차
+[1.도커 이미지만들기](#도커 이미지만들기)<br/>
+[2.멀티 컨테이너 관리](#멀티 컨테이너 관리)<br/>
+[3.로컬 테스트]<br/>
+[4.ECR에 도커이미지 푸시]<br/>
 
 
+### 도커 이미지만들기
+### docker-compose 를 활용한 멀티 컨테이너 관리
+### 로컬실행 테스트
 
-프로젝트 종료
 
-```bash
 
-docker-compose down
+## step1 ECR
+## step2 Task - service 
+## step3 CI/CD
 
-```
 
-## NEXT step
-[2편에서는 CI로 restful api 서비스 만들기](/php_api/)
+## 번외
+[aws elastiCash - redis ](/aws-redis/) <br/>
+[aws sdk를 사용한 s3 multipart upload ](/aws-redis/) <br/>
