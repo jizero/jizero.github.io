@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "개념이해를 위한 ecs 시작해보기 - step1"
+title:  "[aws] 개념이해를 위한 ecs 시작해보기 - step1"
 date:   2020-04-26 10:00
 author: jizero
 tags:	['docker','ecs','aws']
@@ -32,4 +32,4 @@ ec2
 
 ## 번외
 [aws elastiCash - redis ](/aws-redis/) <br/>
-[aws sdk를 사용한 s3 multipart upload ](/aws-redis/) <br/>
+[aws sdk를 사용한 s3 multipart upload ](/aws-s3-multipart/) <br/>

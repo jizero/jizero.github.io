@@ -1,70 +1,66 @@
 ---
 layout: post
-title:  "[codility] MaxNonoverlappingSegments"
-date:   2019-10-01 10:00
+title:  "[codility] FloodDepth"
+date:   2020-08-22 10:00
 author: jizero
 tags:	[javascript,codility,algorithm]
 
 ---
 
 ## 문제 요약
-배열 A B 와 선분을 만들어 겹치지 않는 선을 찾는 문제<br />
-문제 이해만 30분 소요 ㅜㅜ<br />
+엄청난 비가 내린 후 산의 최대 수심을 찾으십시오.
 <br />
-input : <br />
- A = {1,3,7,9,9}<br />
- B = {5,6,8,9,10}<br />
 
-<img src="/assets/img/201910/code1.PNG" />
+input :    <br />
+    A[0] = 1 <br />
+    A[1] = 3 <br />
+    A[2] = 2 <br />
+    A[3] = 1 <br />
+    A[4] = 2 <br />
+    A[5] = 1 <br />
+    A[6] = 5 <br />
+    A[7] = 3 <br />
+    A[8] = 3 <br />
+    A[9] = 4 <br />
+    A[10] = 2 <br />
 <br />
-output : 3
-
-
-### 나의코드 50% 
-
-```javascript
-
-function solution(A, B) {
-    // write your code in JavaScript (Node.js 8.9.4)
-    let resultCount = 0;
-    let segLen =  A.length;
-    for(let i=0; i < A.length ;i++){
-
-        if(B[i] >= A[i+1] &&  B[i] <= B[i+1]){
-            resultCount++;
-        }
-    }
-    
-
-    return (segLen -resultCount);
-}
-
-```
-* 예외처리의 누락
-* 총 선분(배열길이) 을 구한후 중복되지 않는 부분을 제거하였으나 에러검출 4개..
-
-
-
+output : 3 <br />
+<br /><br />
 
 ### 100% code 
 ```javascript
-function solution(A, B) {
+function solution(A) {
     // write your code in JavaScript (Node.js 8.9.4)
-    if (A.length <= 1) {
-        return A.length;
+    if (A.length  <= 2 ){
+        return 0;
     }
-    //배열 길이체크가 10%
+    let h = 0;
+    let r = 0;
+    let max = 0;
+    let cnt = 0;
+    for (let i=1; i < (A.length); i++) {
+        if(A[i] > A[h]){
+             cnt= (A[h]-A[r]);
+             h = i;
+             r = h;
+           //  console.log('111 '+cnt);
+        } else if(A[i] > A[r]) {
+            cnt= (A[i]-A[r]);
+            //console.log('222 '+cnt);
+        } else if(A[i] < A[r]) {            
+            r = i;
+                 // console.log('low'+cnt);
+        } 
+        
 
-    let resultCount = 1;
-    let prevEnd = B[0];
-    for(let i=1; i < A.length ;i++){
-        if(A[i] > B[i+1]  ||  A[i] > prevEnd){
-            resultCount++;
-             prevEnd = B[i];
-        }
+        
+       if(max < cnt){
+           max = cnt;
+       }
     }
     
-
-    return resultCount;
+    return max;
+}
 }
 ```
+
