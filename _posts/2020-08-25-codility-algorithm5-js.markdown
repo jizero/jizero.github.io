@@ -1,8 +1,7 @@
 ---
 layout: post
-title:  "[codility] 
-CyclicRotation"
-date:   2020-08-025 10:00
+title:  "[codility] CyclicRotation"
+date: 2020-08-25 10:00
 author: jizero
 tags:	[javascript,codility,algorithm]
 
