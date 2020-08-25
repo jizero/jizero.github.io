@@ -22,7 +22,7 @@ output : [9, 7, 6, 3, 8]
 
 
 ### 1차시도 나의코드 87% 
-https://app.codility.com/demo/results/training5BZFRG-CE7/
+[https://app.codility.com/demo/results/training5BZFRG-CE7/](https://app.codility.com/demo/results/training5BZFRG-CE7/)
 ```javascript
 function solution(A, K) {
     // write your code in JavaScript (Node.js 8.9.4)
@@ -42,4 +42,4 @@ function solution(A, K) {
 
 
 ### 100% code 
-https://app.codility.com/demo/results/trainingFGNXP3-DFS/(https://app.codility.com/demo/results/trainingFGNXP3-DFS/)
+[https://app.codility.com/demo/results/trainingFGNXP3-DFS/](https://app.codility.com/demo/results/trainingFGNXP3-DFS/)
