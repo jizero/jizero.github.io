@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[codility] CyclicRotation"
+title:  "[codility] GenomicRangeQuery"
 date: 2020-08-27 10:00
 author: jizero
 tags:	[javascript,codility,algorithm]
@@ -8,17 +8,10 @@ tags:	[javascript,codility,algorithm]
 ---
 
 ## 문제 요약
-CyclicRotation
-START
-Rotate an array to the right by a given number of steps.
-<br />
-input : <br />
-   A = [3, 8, 9, 7, 6]<br />
-    K = 3 <br />
+GenomicRangeQuery
 
+특정범위에서 최소값 찾기
 
-<br />
-output : [9, 7, 6, 3, 8]
 
 
 ### 1차시도  (처음으로 1차시도만에 100%를 받아본 코드)
