@@ -6,67 +6,39 @@ author: jizero
 tags:	['docker','msa']
 ---
 
-## MSA 
-전체 어플리케이션을 특정 목적을 가진 어플리케이션 단위로 나누는 것
-
-
-## MSA도입하면서..
-
-### ACID의 문제, API 분산 트랜잭션 
-#### 1->2->3 api를 순서대로 호출후 리턴을 받아야할때는 어떻게 해야할까?  <br />
-- TCC
-- saga 패턴
-
-https://www.popit.kr/rest-%EA%B8%B0%EB%B0%98%EC%9D%98-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B5%AC%ED%98%84-1%ED%8E%B8/
-
-https://kkimsangheon.github.io/2019/06/08/msa3/
-
-
-#### 문자나 이메일같은경우는 어느api에 속해야할까?  <br />
-- 메세지 큐의사용
-https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-5Backing-Service-lqk3b7560w
-
-
-### api Gateway 
-API Gateway는 API 서버 앞단에서 모든 API 서버들의 엔드포인트를 단일화 해주는 또다른 서버다.
-<br/>
-<img src="/assets/img/20200908/444.png" style="max-width:300px;" /> <br/>
-
-[https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
-](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
-)
-
-
-### Orchestration
- orchestration 이라는 개념이 있다. open api의 mash up과 같은 개념으로, 여러개의 서비스를 묶어서 하나의 새로운 서비스를 만드는 개념이다.
-
-
-이는 마이크로 서비스 아키텍쳐가 서비스 자체가 fine grained 형태로 잘게 쪼게졌기 때문에 가능한 일인데, 사실 orchestration을 api gateway 계층에서 하는 것은 gateway 입장에서 부담이 되는 일이다. 실제로 과거의 SOA 시절에 많은 ESB(Enterprise Service Bus) 프로젝트가 실패한 원인 중의 하나가 과도한 orchestration 로직을 넣어서 전체적인 성능 문제를 유발한 경우가 많았다.
-> orchestration 서비스의 활용은 마이크로 서비스 아키텍쳐에 대한 높은 이해와 api gateway 자체에 대한 높은 수준의 기술적인 이해를 필요로 한다.
-
-출처: https://bcho.tistory.com/948 [조대협의 블로그]
-
-
-## MSA 서비스를 6개월동안 해보면서 느낀점..
-사내제한서비스에대한 MSA는 필요한가?  => API분리만으로도 MSA장점을 가져갈수있을듯 <br>
-팀원이 3명이라면... ?  서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?   <br>
+## MSA 란 무엇일까
+MSA란 마이크로 서비스 아키텍처(Micro Service Architecture)의 약자로 단일 프로그램을 각 컴포넌트 별로 나누어 작은 서비스의 조합으로 구축하는 방법입니다.
 
 ### 이미 설계된 아키텍처에 돌을 던져도될까?
 현재 하고있는 아키텍처는 다음과 같다. <br>
 <img src="/assets/img/20200908/333.png" style="max-width:300px;" /> <br>
 약간 준-BFF패턴과 같은건데 ,MSA대한 공부없이 해당 소스를 도커라이징을 하게되었고 하면서 아래방식에 문제점을 느끼는중이다. <br/>
+
+#### 돌 1. 프론트분리의 필요성
 1. 분리되지않은 API에 Front 분리는 의미없다 <br/>
 2. front 공통모듈에대한 부담, 메모리 사용량 , 용량 증가. (공통헤드) <br/>
 API가 나눠지지 않은 상태에서의 프론트의 분리가 의미있을까? <br />
-
-#### UI를분리가 필요하다면? 
-아래의 패턴 처럼 컴포넌트성이 더 유리할듯 싶다.
+##### UI를분리가 필요하다면? 
+아래의 패턴 처럼 컴포넌트성이 더 유리할듯 싶다.  <br/>
 BFF 패턴 <br />
 [https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6](https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6)
-컴포넌트성 프론트도 단일도커로 관리하면 좋을듯
+<br/>
+(컴포넌트성 프론트도 디바이스벼로 컨테이너화해서 관리하면 좋을 듯)
+
+#### 돌2 사내제한서비스에대한 MSA는 필요한가? 
+ ex) XXX대학교 앱이 필요하다. 대상은 XXX대학생이다. 개발서비스 조직은 늘어날 가능성이없다. <br />
+ API 서비스 분리만으로도 MSA장점을 가져갈수있지 않을까?? 
+#### 돌3 팀원이 MSA아키텍처를 감당하기 어렵다면..?  
+ ex) 시작은 미약하나 끝은 창대하다.. 스타트업같이 아직 초기단계의 엔터프라즈급이 되기전에 비지니스에서
+ MSA가 필요할까? <br />
+ 서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?  이건 아직 의문이다.. 어느정도의 미래를 봐야할까 ?
 
 
 #### 도커 CI/CD.. 그리고 의존성 관리
+도입한 CI/CD는 codcommit - codepipeline을 이용해
+master 브랜치가 push되면 ECR이 업데이트되고 클러스터의 서비스가 교체되는 방식이다.
+
+<br>
 현재의 도커라이징  <br>
 - nginx
 - application (php)
@@ -112,9 +84,39 @@ aws  codebuild시  composer.json 에대한  composer라이브러리에서 늘 �
 로컬에서 정적으로 관리 후 소스파일 자체를 올릴지 고민중 이다. <br />
 
 
+### ACID의 문제, API 분산 트랜잭션 
+#### 1->2->3 api를 순서대로 호출후 리턴을 받아야할때는 어떻게 해야할까?  <br />
+- TCC
+- saga 패턴
+
+https://www.popit.kr/rest-%EA%B8%B0%EB%B0%98%EC%9D%98-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B5%AC%ED%98%84-1%ED%8E%B8/
+
+https://kkimsangheon.github.io/2019/06/08/msa3/
 
 
+#### 문자나 이메일같은경우는 어느api에 속해야할까?  <br />
+- 메세지 큐의사용
+https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-5Backing-Service-lqk3b7560w
 
+
+### api Gateway 
+API Gateway는 API 서버 앞단에서 모든 API 서버들의 엔드포인트를 단일화 해주는 또다른 서버다.
+<br/>
+<img src="/assets/img/20200908/444.png" style="max-width:300px;" /> <br/>
+
+[https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+)
+
+
+### Orchestration
+ orchestration 이라는 개념이 있다. open api의 mash up과 같은 개념으로, 여러개의 서비스를 묶어서 하나의 새로운 서비스를 만드는 개념이다.
+
+
+이는 마이크로 서비스 아키텍쳐가 서비스 자체가 fine grained 형태로 잘게 쪼게졌기 때문에 가능한 일인데, 사실 orchestration을 api gateway 계층에서 하는 것은 gateway 입장에서 부담이 되는 일이다. 실제로 과거의 SOA 시절에 많은 ESB(Enterprise Service Bus) 프로젝트가 실패한 원인 중의 하나가 과도한 orchestration 로직을 넣어서 전체적인 성능 문제를 유발한 경우가 많았다.
+> orchestration 서비스의 활용은 마이크로 서비스 아키텍쳐에 대한 높은 이해와 api gateway 자체에 대한 높은 수준의 기술적인 이해를 필요로 한다.
+
+출처: https://bcho.tistory.com/948 [조대협의 블로그]
 
 
 
