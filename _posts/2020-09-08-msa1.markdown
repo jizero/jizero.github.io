@@ -26,7 +26,7 @@ https://www.popit.kr/rest-%EA%B8%B0%EB%B0%98%EC%9D%98-%EA%B0%84%EB%8B%A8%ED%95%9
 https://kkimsangheon.github.io/2019/06/08/msa3/
 
 ### api Gateway 필요성 과 메세지큐
-<img src="/assets/img/20200908/111.png" />
+<img src="/assets/img/20200908/111.png" style="max-width:300px;" />
 #### Orchestration
 orchestration 서비스의 활용은 마이크로 서비스 아키텍쳐에 대한 높은 이해와 api gateway 자체에 대한 높은 수준의 기술적인 이해를 필요로 한다.
 
@@ -37,18 +37,17 @@ orchestration 서비스의 활용은 마이크로 서비스 아키텍쳐에 대�
 팀원이 3명이라면... ?  서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?   <br>
 
 ### 이미 설계된 아키텍처에 돌을 던져도될까?
-현재 하고있는 아키텍처는 다음과 같다.
-약간 준 BFF패턴과 같은건데
-<img src="/assets/img/20200908/333.png" /> <br>
-MSA대한 공부없이 해당 소스를 도커라이징을 하게되었고 하면서 아래방식에 문제점을 느끼는중이다. <br>
+현재 하고있는 아키텍처는 다음과 같다. 약간 준-BFF패턴과 같은건데
+<img src="/assets/img/20200908/333.png" style="max-width:300px;" /> <br>
+MSA대한 공부없이 해당 소스를 도커라이징을 하게되었고 하면서 아래방식에 문제점을 느끼는중이다. <br/>
+1. 분리되지않은 API에 Front 분리는 의미없다 <br/>
+2. front 공통모듈에대한 부담, 메모리 사용량 , 용량 증가. (공통헤드) <br/>
 API가 나눠지지 않은 상태에서의 프론트의 분리가 의미있을까? <br />
 
 #### UI를분리가 필요하다면? 
 아래의 패턴 처럼 컴포넌트성이 더 유리할듯 싶다.
 BFF 패턴 <br />
 [https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6](https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6)
-
-<br /><br />
 컴포넌트성 프론트도 단일도커로 관리하면 좋을듯
 
 
