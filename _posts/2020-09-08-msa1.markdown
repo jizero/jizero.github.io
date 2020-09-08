@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "MSA 와 오케스트레이션 "
-date:   2020-04-26 10:00
+date:   2020-09-08 10:00
 author: jizero
-tags:	['docker','ecs','aws']
+tags:	['docker','msa']
 ---
 
 ## MSA 
@@ -21,21 +21,39 @@ tags:	['docker','ecs','aws']
 https://kkimsangheon.github.io/2019/06/08/msa3/
 
 ### 메세지큐의 중요성
+### 의존성관리
+### 어디까지 분리해야할까? - 도커라이징
 
-### 어디까지 분리해야할까?
 
-#### UI를분리해야하는가?
+
+## MSA 서비스를 6개월동안 해보면서 느낀점..
+사내제한서비스에대한 MSA는 필요한가?  => API분리만으로도 MSA장점을 가져갈수있을듯 <br>
+팀원이 3명이라면... ?  서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?   <br>
+
+### 이미 설계된 아키텍처에 돌을 던져도될까?
+현재 하고있는 아키텍처는 다음과 같다.
+약간 준 BFF패턴과 같은건데
+<img src="/assets/img/20200908/333.PNG" /> <br>
+MSA대한 공부없이 해당 소스를 도커라이징을 하게되었고 하면서 아래방식에 문제점을 느끼는중이다. <br>
+API가 나눠지지 않은 상태에서의 프론트의 분리가 의미있을까 <br>
+
+현재의 도커라이징  <br>
+- nginx
+- application (php)
+  docker volume - front 1  (container 1.. )
+  docker volume - front 2
+  docker volume - front 2
+
+변경하고싶은 방향 <br>
+<img src="/assets/img/20200908/111.PNG" />
+api를 분리/통합 트렌젝션관리  <br>
+
+#### UI를분리가 필요하다면?
 BFF 패턴
 [https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6](https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6)
 
 
 
-
-## 의문점
-- 팀원이 3명이라면... ?  서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?  
-
-
-## 내가 했던 MSA 대한 고찰
 
 
 
