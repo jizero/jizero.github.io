@@ -8,9 +8,9 @@ tags:	['docker','msa']
 
 ## MSA 
 전체 어플리케이션을 특정 목적을 가진 어플리케이션 단위로 나누는 것
+<img src="/assets/img/20200908/111.PNG" />
 
 ## 여러 MSA패턴글
-
 [https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
 ](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
 )
@@ -21,9 +21,6 @@ tags:	['docker','msa']
 https://kkimsangheon.github.io/2019/06/08/msa3/
 
 ### 메세지큐의 중요성
-### 의존성관리
-### 어디까지 분리해야할까? - 도커라이징
-
 
 
 ## MSA 서비스를 6개월동안 해보면서 느낀점..
@@ -33,24 +30,66 @@ https://kkimsangheon.github.io/2019/06/08/msa3/
 ### 이미 설계된 아키텍처에 돌을 던져도될까?
 현재 하고있는 아키텍처는 다음과 같다.
 약간 준 BFF패턴과 같은건데
-<img src="/assets/img/20200908/333.PNG" /> <br>
+<img src="/assets/img/20200908/333.png" /> <br>
 MSA대한 공부없이 해당 소스를 도커라이징을 하게되었고 하면서 아래방식에 문제점을 느끼는중이다. <br>
-API가 나눠지지 않은 상태에서의 프론트의 분리가 의미있을까 <br>
+API가 나눠지지 않은 상태에서의 프론트의 분리가 의미있을까? <br />
 
+#### UI를분리가 필요하다면? 
+아래의 패턴 처럼 컴포넌트성이 더 유리할듯 싶다.
+BFF 패턴 <br />
+[https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6](https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6)
+
+<br /><br />
+컴포넌트성 프론트도 단일도커로 관리하면 좋을듯
+
+
+#### 도커 CI/CD.. 그리고 의존성 관리
 현재의 도커라이징  <br>
 - nginx
 - application (php)
-  docker volume - front 1  (container 1.. )
-  docker volume - front 2
-  docker volume - front 2
+  - docker volume - front 1  (container 1.. )
+  - docker volume - front 2
+  - docker volume - front 3
 
-변경하고싶은 방향 <br>
-<img src="/assets/img/20200908/111.PNG" />
-api를 분리/통합 트렌젝션관리  <br>
+<br /> php composer 의존성관리의경우
+aws codebuild 에서 multi-stage build를 사용중이다 <br />
 
-#### UI를분리가 필요하다면?
-BFF 패턴
-[https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6](https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6)
+stage-1 <br />
+```
+FROM composer:1.7 as vendor
+
+COPY database/ database/
+
+COPY composer.json composer.json
+COPY composer.lock composer.lock
+
+RUN composer install \
+    --ignore-platform-reqs \
+    --no-interaction \
+    --no-plugins \
+    --no-scripts \
+    --prefer-dist
+
+```    
+
+stage-2 <br />
+```
+ 
+ ... 생략 ..
+ COPY --from=vendor /app/vendor/ /var/www/html/vendor/
+ ..
+
+```    
+
+로컬환경에서는  multi-stage 테스트는 너무 좋았다.  stage-1도 로컬환경내에서 캐시가 되기 때문에 composer install에대한 부담이 없었다. <br />
+aws  codebuild시  composer.json 에대한  composer라이브러리에서 늘 새로 가져온다.. <br />
+여러 캐시 서비스를 찾아보는중인데 stage-1 을 캐시화하는 방법을 찾지 못했다.<br />
+아니면 젠킨스등을 통해 서버환경에 맞춰서 composer install을 하고 <br />
+로컬에서 정적으로 관리 후 소스파일 자체를 올릴지 고민중 이다. <br />
+
+
+
+
 
 
 
