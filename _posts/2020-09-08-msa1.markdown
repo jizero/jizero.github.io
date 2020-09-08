@@ -10,27 +10,32 @@ tags:	['docker','msa']
 전체 어플리케이션을 특정 목적을 가진 어플리케이션 단위로 나누는 것
 
 
-## 여러 MSA패턴글
-[https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
-](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
-)
+## MSA도입하면서..
 
-## MSA도입하려면 내가 알아할것..
-
-### API 분산 트랜잭션 패턴들
+### ACID의 문제, API 분산 트랜잭션 
+> 1->2->3 api를 순서대로 호출후 리턴을 받아야할때는 어떻게 해야할까?  <br />
 - TCC
 - saga 패턴
-
 https://www.popit.kr/rest-%EA%B8%B0%EB%B0%98%EC%9D%98-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B5%AC%ED%98%84-1%ED%8E%B8/
 
 https://kkimsangheon.github.io/2019/06/08/msa3/
 
-### api Gateway 필요성 과 메세지큐
-<img src="/assets/img/20200908/111.png" style="max-width:300px;" />
-#### Orchestration
-orchestration 서비스의 활용은 마이크로 서비스 아키텍쳐에 대한 높은 이해와 api gateway 자체에 대한 높은 수준의 기술적인 이해를 필요로 한다.
 
-출처: https://bcho.tistory.com/948 [조대협의 블로그]
+> 문자나 이메일같은경우는 어느api에 속해야할까?  <br />
+- 메세지 큐의사용
+https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-5Backing-Service-lqk3b7560w
+
+
+### api Gateway 
+API Gateway는 API 서버 앞단에서 모든 API 서버들의 엔드포인트를 단일화 해주는 또다른 서버다.
+<br/>
+<img src="/assets/img/20200908/111.png" style="max-width:300px;" /> <br/>
+
+[https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+)
+
+
 
 ## MSA 서비스를 6개월동안 해보면서 느낀점..
 사내제한서비스에대한 MSA는 필요한가?  => API분리만으로도 MSA장점을 가져갈수있을듯 <br>
