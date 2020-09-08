@@ -13,7 +13,7 @@ tags:	['docker','msa']
 ## MSA도입하면서..
 
 ### ACID의 문제, API 분산 트랜잭션 
-> 1->2->3 api를 순서대로 호출후 리턴을 받아야할때는 어떻게 해야할까?  <br />
+#### 1->2->3 api를 순서대로 호출후 리턴을 받아야할때는 어떻게 해야할까?  <br />
 - TCC
 - saga 패턴
 https://www.popit.kr/rest-%EA%B8%B0%EB%B0%98%EC%9D%98-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B5%AC%ED%98%84-1%ED%8E%B8/
@@ -21,7 +21,7 @@ https://www.popit.kr/rest-%EA%B8%B0%EB%B0%98%EC%9D%98-%EA%B0%84%EB%8B%A8%ED%95%9
 https://kkimsangheon.github.io/2019/06/08/msa3/
 
 
-> 문자나 이메일같은경우는 어느api에 속해야할까?  <br />
+#### 문자나 이메일같은경우는 어느api에 속해야할까?  <br />
 - 메세지 큐의사용
 https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-5Backing-Service-lqk3b7560w
 
@@ -35,6 +35,15 @@ API Gateway는 API 서버 앞단에서 모든 API 서버들의 엔드포인트�
 ](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
 )
 
+
+### Orchestration
+ orchestration 이라는 개념이 있다. open api의 mash up과 같은 개념으로, 여러개의 서비스를 묶어서 하나의 새로운 서비스를 만드는 개념이다.
+
+
+이는 마이크로 서비스 아키텍쳐가 서비스 자체가 fine grained 형태로 잘게 쪼게졌기 때문에 가능한 일인데, 사실 orchestration을 api gateway 계층에서 하는 것은 gateway 입장에서 부담이 되는 일이다. 실제로 과거의 SOA 시절에 많은 ESB(Enterprise Service Bus) 프로젝트가 실패한 원인 중의 하나가 과도한 orchestration 로직을 넣어서 전체적인 성능 문제를 유발한 경우가 많았다.
+> orchestration 서비스의 활용은 마이크로 서비스 아키텍쳐에 대한 높은 이해와 api gateway 자체에 대한 높은 수준의 기술적인 이해를 필요로 한다.
+
+출처: https://bcho.tistory.com/948 [조대협의 블로그]
 
 
 ## MSA 서비스를 6개월동안 해보면서 느낀점..
