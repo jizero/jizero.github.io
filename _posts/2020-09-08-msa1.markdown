@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "MSA 와 오케스트레이션 "
+date:   2020-04-26 10:00
+author: jizero
+tags:	['docker','ecs','aws']
+---
+
+## MSA 
+전체 어플리케이션을 특정 목적을 가진 어플리케이션 단위로 나누는 것
+
+## 여러 MSA패턴글
+
+[https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+)
+
+## MSA도입하려면 내가 알아할것..
+
+### 트렌젝션 패턴들
+https://kkimsangheon.github.io/2019/06/08/msa3/
+
+### 메세지큐의 중요성
+
+### 어디까지 분리해야할까?
+
+#### UI를분리해야하는가?
+BFF 패턴
+[https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6](https://medium.com/@giljae/back-end-for-front-end-pattern-bff-4b73f29858d6)
+
+
+
+
+## 의문점
+- 팀원이 3명이라면... ?  서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?  
+
+
+## 내가 했던 MSA 대한 고찰
+
+
+
+
