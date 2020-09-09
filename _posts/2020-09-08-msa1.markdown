@@ -9,12 +9,12 @@ tags:	['docker','msa']
 ## MSA 란 무엇일까
 MSA란 마이크로 서비스 아키텍처(Micro Service Architecture)의 약자로 단일 프로그램을 각 컴포넌트 별로 나누어 작은 서비스의 조합으로 구축하는 방법입니다.
 
-### 이미 설계된 아키텍처에 돌을 던져도될까?
+### 기존 MSA방식으로 서비스를 해오면서
 현재 하고있는 아키텍처는 다음과 같다. <br>
-<img src="/assets/img/20200908/333.png" style="max-width:300px;" /> <br>
+<img src="/assets/img/20200908/444.png" style="max-width:300px;" /> <br>
 약간 준-BFF패턴과 같은건데 ,MSA대한 공부없이 해당 소스를 도커라이징을 하게되었고 하면서 아래방식에 문제점을 느끼는중이다. <br/>
 
-#### 돌 1. 프론트분리의 필요성
+####  1. 프론트분리의 필요성 다시 생각하기!
 1. 분리되지않은 API에 Front 분리는 의미없다 <br/>
 2. front 공통모듈에대한 부담, 메모리 사용량 , 용량 증가. (공통헤드) <br/>
 API가 나눠지지 않은 상태에서의 프론트의 분리가 의미있을까? <br />
@@ -25,13 +25,14 @@ BFF 패턴 <br />
 <br/>
 (컴포넌트성 프론트도 디바이스벼로 컨테이너화해서 관리하면 좋을 듯)
 
-#### 돌2 사내제한서비스에대한 MSA는 필요한가? 
+#### 2 사내제한서비스에대한 MSA는 필요한가? 
  ex) XXX대학교 앱이 필요하다. 대상은 XXX대학생이다. 개발서비스 조직은 늘어날 가능성이없다. <br />
  API 서비스 분리만으로도 MSA장점을 가져갈수있지 않을까?? 
-#### 돌3 팀원이 MSA아키텍처를 감당하기 어렵다면..?  
+#### 3 팀원이 MSA아키텍처를 감당하기 어렵다면..?  
  ex) 시작은 미약하나 끝은 창대하다.. 스타트업같이 아직 초기단계의 엔터프라즈급이 되기전에 비지니스에서
  MSA가 필요할까? <br />
  서비스가 커지기전에 프로토타입서비스를 미리 나눠야할까..?  이건 아직 의문이다.. 어느정도의 미래를 봐야할까 ?
+ 
 
 
 #### 도커 CI/CD.. 그리고 의존성 관리
@@ -102,7 +103,7 @@ https://velog.io/@tedigom/MSA-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%
 ### api Gateway 
 API Gateway는 API 서버 앞단에서 모든 API 서버들의 엔드포인트를 단일화 해주는 또다른 서버다.
 <br/>
-<img src="/assets/img/20200908/444.png" style="max-width:300px;" /> <br/>
+<img src="/assets/img/20200908/111.png" style="max-width:300px;" /> <br/>
 
 [https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
 ](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
