@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "단방향 구독 서비스"
+date:   2020-09-08 10:00
+author: jizero
+tags:	['SSE','notifiy','websoket']
+---
+
+## SSE는 언제 쓰면 좋을까
+일방적인 알람 
+- 웹에서 쪽지(메시지)가 왔을때
+- 웹에서 클라우드 콘솔을 실행하고 결과를 받고싶을때
+
+
+### 그래서 SSE가 뭐지
+<img src="/assets/img/2022/11.jpg" style="max-width:100%;">
+
+
+### 코드 예시
+
+```
+     "test": "./node_modules/.bin/mocha --require @babel/register"
+```
+
+### 실습해보기
+
+### 서버를 쓸수 없다면?
+https://pusher.com/
+
+
