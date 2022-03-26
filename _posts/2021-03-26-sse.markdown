@@ -6,25 +6,97 @@ author: jizero
 tags:	['SSE','notifiy','websoket']
 ---
 
-## SSE는 언제 쓰면 좋을까
-일방적인 알람 
-- 웹에서 쪽지(메시지)가 왔을때
-- 웹에서 클라우드 콘솔을 실행하고 결과를 받고싶을때
+
 
 
 ### 그래서 SSE가 뭐지
 <img src="/assets/img/2022/sse01.jpg" style="max-width:100%;">
+한번 연결을 맺으면 클라이언트에서는 지속적으로 서버 스트림을 수신한다.
 
-
-### 코드 예시
-
-```
-     "test": "./node_modules/.bin/mocha --require @babel/register"
-```
+## SSE는 언제 쓰면 좋을까
+일방적인 알림
+- 웹에서 쪽지(메시지)가 왔을때
+- 웹에서 클라우드 콘솔을 실행하고 결과를 받고싶을때
+- 뉴스알림 
 
 ### 실습해보기
+
+#### backend 서버 (Node)
+```
+const express = require('express')
+
+const app = express()
+app.use(express.static('public'))
+
+app.get('/event', function(req, res) {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream', //핵심
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  })
+  countdown(res, 10)
+})
+
+function countdown(res, count) {
+  res.write("data: " + count + "\n\n")
+  if (count)
+    setTimeout(() => countdown(res, count-1), 1000)
+  else
+    res.end()
+}
+
+app.listen(3000, () => console.log('SSE app listening on port 3000!'))
+```
+
+#### front-end (React)
+
+
+
+```
+import React, { useState, useEffect } from 'react';
+import './App.css';
+
+function App() {
+  const [ facts, setFacts ] = useState([]);
+  const [ listening, setListening ] = useState(false);
+
+  useEffect( () => {
+    if (!listening) {
+      const events = new EventSource('http://localhost:3000/event');
+
+      events.onmessage = (event) => {
+        const parsedData = JSON.parse(event.data);
+
+        setFacts((facts) => facts.concat(parsedData));
+      };
+
+      setListening(true);
+    }
+  }, [listening, facts]);
+
+  return (
+    <table className="stats-table">
+      <tbody>
+        {
+          facts.map((fact, i) =>
+            <tr key={i}>
+              <td>{fact.info}</td>
+              <td>{fact.source}</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  );
+}
+
+export default App;
+```
+
+
 
 ### 서버를 쓸수 없다면?
 https://pusher.com/
 
-
+###
+https://www.digitalocean.com/community/tutorials/nodejs-server-sent-events-build-realtime-app
