@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "단방향 구독 서비스"
-date:   2020-09-08 10:00
+title:  "단방향 구독 서비스 SSE"
+date:   2021-03-26 10:00
 author: jizero
 tags:	['SSE','notifiy','websoket']
 ---
