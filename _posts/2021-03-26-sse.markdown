@@ -13,7 +13,7 @@ tags:	['SSE','notifiy','websoket']
 
 
 ### 그래서 SSE가 뭐지
-<img src="/assets/img/2022/11.jpg" style="max-width:100%;">
+<img src="/assets/img/2022/sse01.jpg" style="max-width:100%;">
 
 
 ### 코드 예시
