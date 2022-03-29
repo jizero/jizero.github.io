@@ -1,0 +1,53 @@
+---
+layout: post
+title:  "세일즈포스 TDD"
+date:   2021-09-26 5:00
+author: jizero
+tags:	['salesforce','Tdd','apex']
+---
+
+
+
+### 세일즈포스에서의 TDD
+세일즈포스는 테스트코드를 작성하고 커버리지가 75% 통과하지 못할경우 배포할수 없다..
+이렇게 강제로 TDD를 배워가는것...
+
+
+### 코드예시
+Salesforce 플랫폼에서 단위 테스트는 어노테이션으로 가능하다..
+Apex 클래스는 단위 테스트 클래스로서의 역할을 나타내기 위해 쉽게 주석을 달 수 있다(@isTest). 
+```
+@IsTest
+public class OpportunityTriggerTest {
+    @IsTest
+    static void testSetAccountNameAsOpportunityName() {
+        String accountName = 'MyTestAccount';
+
+        Test.startTest();
+        Account acc = new Account(Name = accountName);
+        insert acc;
+
+        Opportunity opp = new Opportunity(
+            Name = 'MyTestOpp',
+            StageName = 'Prospecting',
+            AccountId = acc.Id,
+            CloseDate = Date.today().addDays(30)
+        );
+        insert opp;
+        Test.stopTest();
+
+        Opportunity oppAfterInsert = [SELECT Name FROM Opportunity WHERE Id = :opp.Id LIMIT 1];
+        System.assertEquals(accountName, oppAfterInsert.Name, 'Opportunity should have same name as Account');
+    }
+}
+```
+
+### 심화과정 API 테스트
+Apex 언어는 API 콜아웃 또는 Salesforce 구성 변경과 같은 외부 요인으로부터 테스트 실행을 격리할 수 있는 Mocking의 고급 단위 테스트 기술 지원한다.
+[https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_restful_http_testing_httpcalloutmock.htm] (https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_restful_http_testing_httpcalloutmock.htm)
+
+
+
+
+ 글로벌 1위 CRM 회사 답게.. 코드도 정리가 잘되어있다.
+ 해당방식을 차용해서 다른 언어에도 적용해봐야겠다.
