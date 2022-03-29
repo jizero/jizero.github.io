@@ -9,7 +9,7 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: jizero Hwang # add your name
 author-img: hwang2.jpg # add your photo
-about-author:  Always hungry to keep learning. # add description
+about-author:  자바스크립트 생태계를 탐구하는 서비스 엔지니어. # add description
 social-twitter: # add your Twitter handle
 social-facebook: # add your Facebook handle
 social-github: jizero # add your Github handle
